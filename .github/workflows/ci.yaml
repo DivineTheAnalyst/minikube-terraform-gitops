@@ -1,0 +1,24 @@
+
+
+name: Minikube Terraform Gitops
+
+  on:
+    push:
+      branches:
+        - main
+
+  jobs:
+    build_and_push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      
+      - name: set short SHA
+       run: |
+          echo "SHORT_SHA=$(echo ${GITHUB_SHA} | cut -c1-7)" >> $GITHUB_ENV
+
+      - name: Build Docker Image
+        runs: |
+          docker build -t ijeawele/current-time:${{ env.SHORT_SHA }}  .
+          
