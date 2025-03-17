@@ -26,4 +26,7 @@ name: Minikube Terraform Gitops
         run: |
           echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u ${{ secrets.DOCKERHUB_USERNAME}} --password-stdin
 
-      
+      - name: Push to Dockerhub
+        run: |
+          docker push ijeawele/current-time:${{ env.SHORT_SHA }}
+
