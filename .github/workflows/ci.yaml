@@ -21,4 +21,9 @@ name: Minikube Terraform Gitops
       - name: Build Docker Image
         runs: |
           docker build -t ijeawele/current-time:${{ env.SHORT_SHA }}  .
-          
+
+      - name: Login to Dockerhub
+        run: |
+          echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u ${{ secrets.DOCKERHUB_USERNAME}} --password-stdin
+
+      
